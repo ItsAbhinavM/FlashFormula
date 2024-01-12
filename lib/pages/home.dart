@@ -3,9 +3,9 @@ import 'package:flashcard/pages/flashcardView.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_math_fork/ast.dart';
+//import 'package:flutter_math_fork/ast.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
-import 'package:flutter_math_fork/tex.dart';
+//import 'package:flutter_math_fork/tex.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_swipe_detector/flutter_swipe_detector.dart';
 
@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   final List<FlashCard> _flashCard = [
     FlashCard(
       question: Math.tex(
-        "Mass-energy\\ equation?",
+        "Mass-energy\\ eqn?",
         textStyle: TextStyle(fontWeight: FontWeight.w700, fontSize: 21),
       ),
       answer: Math.tex('E = mc^2',
@@ -45,7 +45,57 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: appBar(),
-        body: scienceSection());
+        body: Column(children: [
+          scienceSection(),
+          SizedBox(
+            height: 40,
+          ),
+          Row(
+            children: [
+              Padding(padding: const EdgeInsets.only(left: 20)),
+              Text(
+                "Math : ",
+                style: TextStyle(
+                    color: Colors.blue,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 25),
+              ),
+              SvgPicture.asset(
+                'assets/icons/calculator.svg',
+                height: 30,
+                width: 20,
+              )
+            ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Column(
+            children: [
+              SizedBox(
+                height: 250,
+                width: 250,
+                child: Center(
+                  child: Card(
+                    color: Color.fromARGB(255, 85, 196, 204),
+                    child: SwipeDetector(
+                      //swipe detector
+                      child: FlipCard(
+                          front: Text(
+                            "front",
+                            style: TextStyle(fontSize: 30),
+                          ),
+                          back: Text(
+                              "thisisaverylongtextwritteninacardwhichisnotinitsshape",
+                              style: TextStyle(fontSize: 30))),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ]));
   }
 
   Column scienceSection() {
@@ -87,8 +137,8 @@ class _HomePageState extends State<HomePage> {
                   showPreviousCard();
                 },
                 child: SizedBox(
-                  height: 250,
-                  width: 300,
+                  height: 200,
+                  width: 250,
                   child: Center(
                       child: Card(
                           color: Color.fromARGB(255, 85, 196, 204),
