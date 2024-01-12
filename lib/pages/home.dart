@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
         body: Column(children: [
           scienceSection(),
           SizedBox(
-            height: 40,
+            height: 20,
           ),
           Row(
             children: [
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           SizedBox(
-            height: 20,
+            height: 10,
           ),
           Column(
             children: [
@@ -120,6 +120,23 @@ class _HomePageState extends State<HomePage> {
               )
             ],
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              OutlinedButton.icon(
+                  onPressed: () {
+                    showPreviousMathCard();
+                  },
+                  icon: SvgPicture.asset('assets/icons/left.svg'),
+                  label: Text('Prev')),
+              OutlinedButton.icon(
+                  onPressed: () {
+                    showNextMathCard();
+                  },
+                  icon: SvgPicture.asset('assets/icons/left.svg'),
+                  label: Text('Next'))
+            ],
+          ),
         ]));
   }
 
@@ -127,7 +144,7 @@ class _HomePageState extends State<HomePage> {
     return Column(
       children: [
         SizedBox(
-          height: 40,
+          height: 30,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
