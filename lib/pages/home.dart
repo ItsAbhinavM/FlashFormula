@@ -40,6 +40,29 @@ class _HomePageState extends State<HomePage> {
 
   int _currentIndex = 0;
 
+  final List<FlashCard> _flashCard1 = [
+    FlashCard(
+      question: Math.tex(
+        "Pythagorus\\ theorem?",
+        textStyle: TextStyle(fontWeight: FontWeight.w700, fontSize: 21),
+      ),
+      answer: Math.tex('a^2\\ +\\ b^2\\ =\\ c^2',
+          textStyle: TextStyle(fontWeight: FontWeight.w700, fontSize: 22)),
+    ),
+    FlashCard(
+        question: Math.tex("Definite\\ integral",
+            textStyle: TextStyle(fontWeight: FontWeight.w700, fontSize: 22)),
+        answer: Math.tex('\int_a^b f(x) \ dx',
+            textStyle: TextStyle(fontWeight: FontWeight.w700, fontSize: 22))),
+    FlashCard(
+        question: Math.tex("Area\\ under\\ Curve",
+            textStyle: TextStyle(fontWeight: FontWeight.w700, fontSize: 22)),
+        answer: Math.tex("\int_a^b f(x) \ dx",
+            textStyle: TextStyle(fontWeight: FontWeight.w700, fontSize: 22)))
+  ];
+
+  int _currentIndexMath = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,15 +103,17 @@ class _HomePageState extends State<HomePage> {
                   child: Card(
                     color: Color.fromARGB(255, 85, 196, 204),
                     child: SwipeDetector(
-                      //swipe detector
+                      onSwipeLeft: (Offset) {
+                        showNextMathCard();
+                      },
+                      onSwipeRight: (offset) {
+                        showPreviousMathCard();
+                      },
                       child: FlipCard(
-                          front: Text(
-                            "front",
-                            style: TextStyle(fontSize: 30),
-                          ),
-                          back: Text(
-                              "thisisaverylongtextwritteninacardwhichisnotinitsshape",
-                              style: TextStyle(fontSize: 30))),
+                          front: FlashCardView(
+                              text: _flashCard1[_currentIndexMath].question),
+                          back: FlashCardView(
+                              text: _flashCard1[_currentIndexMath].answer)),
                     ),
                   ),
                 ),
@@ -182,10 +207,26 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void showNextMathCard() {
+    setState(() {
+      _currentIndexMath = (_currentIndexMath + 1 < _flashCard1.length)
+          ? _currentIndexMath + 1
+          : 0;
+    });
+  }
+
   void showPreviousCard() {
     setState(() {
       _currentIndex =
           (_currentIndex - 1 >= 0) ? _currentIndex - 1 : _flashCard.length - 1;
+    });
+  }
+
+  void showPreviousMathCard() {
+    setState(() {
+      _currentIndexMath = (_currentIndexMath - 1 >= 0)
+          ? _currentIndexMath - 1
+          : _flashCard1.length - 1;
     });
   }
 
